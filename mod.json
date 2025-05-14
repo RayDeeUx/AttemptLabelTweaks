@@ -1,0 +1,476 @@
+{
+	"geode": "4.4.0",
+	"gd": {
+		"win": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074",
+		"android": "2.2074"
+	},
+	"id": "raydeeux.attemptlabeltweaks",
+	"name": "AttemptLabelTweaks",
+	"version": "v1.0.0",
+	"developer": "RayDeeUx",
+	"description": "Read the mod name.",
+	"repository": "https://github.com/RayDeeUx/AttemptLabelTweaks",
+	"settings": {
+		"enabled-header": {
+			"name": "AttemptLabelTweaks Master Switch",
+			"type": "title"
+		},
+		"enabled": {
+			"name": "Enabled",
+			"description": "Toggles the mod.",
+			"type": "bool",
+			"default": true
+		},
+		"attempt-text-header": {
+			"name": "Text Formatting",
+			"description": "Settings related to attempt label text formatting.",
+			"type": "title"
+		},
+		"format": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "The attempt label will be formatted as such:\n`Custom Prefix Text` `attempt count` `Custom Suffix Text`, then trimmed to remove leading and trailing whitespaces.",
+			"type": "bool",
+			"default": true
+		},
+		"atempt": {
+			"name": "Use Level Attempt Count (for Normal Mode)",
+			"description": "Use the level's attempt count in the attempt label.",
+			"type": "bool",
+			"default": false
+		},
+		"attemptPrefix": {
+			"name": "Custom Prefix Text (for Normal Mode)",
+			"description": "Set the custom prefix text (text before the attempt label's attempt count).",
+			"type": "string",
+			"default": "Attempt",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"attemptSuffix": {
+			"name": "Custom Suffix Text (for Normal Mode)",
+			"description": "Set the custom suffix text (text after the attempt label's attempt count).\n\n<c_>Ordinal numbers (-st, -nd, -rd, -th) support for the attempt count will ***__NOT__*** happen anytime during this mod's lifecycle.</c>",
+			"type": "string",
+			"default": "",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"formaP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "The attempt label will be formatted as such:\n`Custom Prefix Text` `attempt count` `Custom Suffix Text`, then trimmed to remove leading and trailing whitespaces.\n\n<c_>Ordinal numbers (-st, -nd, -rd, -th) support for the attempt count will ***__NOT__*** happen anytime during this mod's lifecycle.</c>",
+			"type": "bool",
+			"default": true
+		},
+		"attemP": {
+			"name": "Use Level Attempt Count (for Practice Mode)",
+			"description": "Use the level's attempt count in the attempt label when in Practice Mode.",
+			"type": "bool",
+			"default": false
+		},
+		"attemptPrefixPractice": {
+			"name": "Custom Prefix Text (for Practice Mode)",
+			"description": "Set the custom prefix text (text before the attempt label's attempt count) when in Practice Mode.",
+			"type": "string",
+			"default": "Attempt",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"attemptSuffixPractice": {
+			"name": "Custom Suffix Text (for Practice Mode)",
+			"description": "Set the custom suffix text (text after the attempt label's attempt count) when in Practice Mode.\n\n<c_>Ordinal numbers (-st, -nd, -rd, -th) support for the attempt count will ***__NOT__*** happen anytime during this mod's lifecycle.</c>",
+			"type": "string",
+			"default": "",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"formTT": {
+			"name": "Enabled (for Testmode)",
+			"description": "The attempt label will be formatted as such:\n`Custom Prefix Text` `attempt count` `Custom Suffix Text`, then trimmed to remove leading and trailing whitespaces.\n\n<c_>Ordinal numbers (-st, -nd, -rd, -th) support for the attempt count will ***__NOT__*** happen anytime during this mod's lifecycle.</c>",
+			"type": "bool",
+			"default": true
+		},
+		"attmTT": {
+			"name": "Use Level Attempt Count (for Testmode)",
+			"description": "Use the level's attempt count in the attempt label when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": false
+		},
+		"attemptPrefixTestmode": {
+			"name": "Custom Prefix Text (for Testmode)",
+			"description": "Set the custom prefix text (text before the attempt label's attempt count) when in Testmode (playing from a start position).",
+			"type": "string",
+			"default": "Attempt",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"attemptSuffixTestmode": {
+			"name": "Custom Suffix Text (for Testmode)",
+			"description": "Set the custom suffix text (text after the attempt label's attempt count) when in Testmode (playing from a start position).",
+			"type": "string",
+			"default": "",
+			"filter": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789-.?!@#$%^&*()[]{};',./<>\\|`~:\""
+		},
+		"custom-color-header": {
+			"name": "Custom Colors",
+			"description": "Settings related to attempt label coloring.",
+			"type": "title"
+		},
+		"colorB": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "Enables custom colors.",
+			"type": "bool",
+			"default": true
+		},
+		"color": {
+			"name": "Color (for Normal Mode)",
+			"description": "Set the attempt label's color.",
+			"type": "rgb",
+			"default": [255, 255, 255]
+		},
+		"colorP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "Enables custom colors when in Practice Mode.",
+			"type": "bool",
+			"default": true
+		},
+		"colorPractice": {
+			"name": "Color (for Practice Mode)",
+			"description": "Set the attempt label's color when in Practice Mode.",
+			"type": "rgb",
+			"default": [255, 255, 255]
+		},
+		"colorT": {
+			"name": "Enabled (for Testmode)",
+			"description": "Enables custom colors when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": true
+		},
+		"colorTestmode": {
+			"name": "Color (for Testmode)",
+			"description": "Set the attempt label's color when in Testmode (playing from a start position).",
+			"type": "rgb",
+			"default": [255, 255, 255]
+		},
+		"custom-alpha-header": {
+			"name": "Custom Opacities",
+			"description": "Settings related to custom opacities for the attempt label.",
+			"type": "title"
+		},
+		"alphaB": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "Enables opacity customization.",
+			"type": "bool",
+			"default": true
+		},
+		"alpha": {
+			"name": "Alpha/Opacity (for Normal Mode)",
+			"description": "Sets the attempt label's opacity.",
+			"type": "int",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 5,
+				"big-arrow-step": 10,
+				"slider-step": 1
+			}
+		},
+		"alphaP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "Enables opacity customization when in Practice Mode.",
+			"type": "bool",
+			"default": true
+		},
+		"alphaPractice": {
+			"name": "Alpha/Opacity (for Practice Mode)",
+			"description": "Sets the attempt label's opacity when in Practice Mode.",
+			"type": "int",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 5,
+				"big-arrow-step": 10,
+				"slider-step": 1
+			}
+		},
+		"alphaT": {
+			"name": "Enabled (for Testmode)",
+			"description": "Enables opacity customization when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": true
+		},
+		"alphaTestmode": {
+			"name": "Alpha/Opacity (for Testmode)",
+			"description": "Sets the attempt label's opacity when in Testmode (playing from a start position).",
+			"type": "int",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 5,
+				"big-arrow-step": 10,
+				"slider-step": 1
+			}
+		},
+		"chroma-header": {
+			"name": "Chroma Mode",
+			"description": "# <cl>Original code by ItzKiba.</c>\nSettings related to Chroma Mode for the attempt label.\n<c_>These options WILL override your Custom Colors</c><cy>, but NOT your Custom Opacities.</c>",
+			"type": "title"
+		},
+		"chroma": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "Enables Chroma Mode.",
+			"type": "bool",
+			"default": false
+		},
+		"chromaSpeed": {
+			"name": "Speed (for Normal Mode)",
+			"description": "Sets how quickly (lower value)/slowly (higher value) the attempt label changes color if \"Chroma Mode\" is enabled.",
+			"type": "float",
+			"default": 0.25,
+			"min": 0.01,
+			"max": 1.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": false,
+				"big-arrows": false,
+				"arrow-step": 0,
+				"big-arrow-step": 0,
+				"slider-step": 0.01
+			}
+		},
+		"chromP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "Enables Chroma Mode when in Practice Mode.",
+			"type": "bool",
+			"default": false
+		},
+		"chromaSpeedPractice": {
+			"name": "Speed (for Practice Mode)",
+			"description": "Sets how quickly (lower value)/slowly (higher value) the attempt label changes color if \"Chroma Mode\" is enabled when in Practice Mode.",
+			"type": "float",
+			"default": 0.25,
+			"min": 0.01,
+			"max": 1.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": false,
+				"big-arrows": false,
+				"arrow-step": 0,
+				"big-arrow-step": 0,
+				"slider-step": 0.01
+			}
+		},
+		"chromT": {
+			"name": "Enabled (for Testmode)",
+			"description": "Enables Chroma Mode when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": false
+		},
+		"chromaSpeedTestmode": {
+			"name": "Speed (for Testmode)",
+			"description": "Sets how quickly (lower value)/slowly (higher value) the attempt label changes color if \"Chroma Mode\" is enabled when in Testmode (playing from a start position).",
+			"type": "float",
+			"default": 0.25,
+			"min": 0.01,
+			"max": 1.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": false,
+				"big-arrows": false,
+				"arrow-step": 0,
+				"big-arrow-step": 0,
+				"slider-step": 0.01
+			}
+		},
+		"scale-header": {
+			"name": "Scale Customization",
+			"description": "Settings related to attempt label's scale.",
+			"type": "title"
+		},
+		"scaleB": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "Enables scale customization.",
+			"type": "bool",
+			"default": true
+		},
+		"scale": {
+			"name": "Scale (for Normal Mode)",
+			"description": "Sets the scale of the attempt label.",
+			"type": "float",
+			"default": 1.00,
+			"min": 0.01,
+			"max": 2.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 0.01
+			}
+		},
+		"scaleP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "Enables scale customization when in Practice Mode.",
+			"type": "bool",
+			"default": true
+		},
+		"scalePractice": {
+			"name": "Scale (for Practice Mode)",
+			"description": "Sets the scale of the attempt label when in Practice Mode.",
+			"type": "float",
+			"default": 1.00,
+			"min": 0.01,
+			"max": 2.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 0.01
+			}
+		},
+		"scaleT": {
+			"name": "Enabled (for Testmode)",
+			"description": "Enables scale customization when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": true
+		},
+		"scaleTestmode": {
+			"name": "Scale (for Testmode)",
+			"description": "Sets the scale of the attempt label when in Testmode (playing from a start position).",
+			"type": "float",
+			"default": 1.00,
+			"min": 0.01,
+			"max": 2.00,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 0.01
+			}
+		},
+		"font-header": {
+			"name": "Font Customization",
+			"description": "Settings related to attempt label's font.",
+			"type": "title"
+		},
+		"cFontB": {
+			"name": "Enabled (for Normal Mode)",
+			"description": "Enables font customization for the attempt label.",
+			"type": "bool",
+			"default": true
+		},
+		"font": {
+			"name": "Font # (for Normal Mode)",
+			"description": "Sets the font of the attempt label. Default is 0 (keep the level's original chosen font).\n\nNotes:\n- <cj>-1 for Pusab, -2 for Golden Pusab, -3 for Aller/Helvetica (the font you're reading here right now).</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>",
+			"type": "int",
+			"default": 0,
+			"min": -3,
+			"max": 59,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
+		},
+		"cFontP": {
+			"name": "Enabled (for Practice Mode)",
+			"description": "Enables font customization for the attempt label when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": true
+		},
+		"fontPractice": {
+			"name": "Font # (for Practice Mode)",
+			"description": "Sets the font of the attempt label when in Practice Mode. Default is 0 (keeps the level's original chosen font).\n\nNotes:\n- <cj>-1 for Pusab, -2 for Golden Pusab, -3 for Aller/Helvetica (the font you're reading here right now).</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>",
+			"type": "int",
+			"default": 0,
+			"min": -3,
+			"max": 59,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
+		},
+		"cFontT": {
+			"name": "Enabled (for Testmode)",
+			"description": "Enables font customization for the attempt label when in Testmode (playing from a start position).",
+			"type": "bool",
+			"default": true
+		},
+		"fontTestmode": {
+			"name": "Font # (for Testmode)",
+			"description": "Sets the font of the attempt label when in Testmode (playing from a start position). Default is 0 (keeps the level's original chosen font).\n\nNotes:\n- <cj>-1 for Pusab, -2 for Golden Pusab, -3 for Aller/Helvetica (the font you're reading here right now).</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>",
+			"type": "int",
+			"default": 0,
+			"min": -3,
+			"max": 59,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
+		},
+		"misc-header": {
+			"name": "Miscellaneous",
+			"type": "title"
+		},
+		"blend": {
+			"name": "Readable Mode (Stronger Blending)",
+			"description": "# <c_>***__YOU REALLY SHOULDN'T DISABLE THIS UNLESS IF YOU HAVE A DEATH WISH.__***</c>\nMakes the attempt label easier to read across a far larger variety of scenarios if using the Aller/Helvetica font for the attempt label.",
+			"type": "bool",
+			"default": true
+		},
+		"logging": {
+			"name": "Logging",
+			"type": "bool",
+			"default": false
+		}
+	},
+	"incompatibilities": {
+		"ata.cat": {
+			"version": ">=1.0.0",
+			"importance": "superseded"
+		}
+	},
+	"issues": {
+		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
+		"info": "Ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"
+	},
+	"links": {
+		"community": "https://discord.gg/WqZBYdBWZW",
+		"homepage": "https://discord.com/channels/822510988409831486/1206371881222144020"
+	}
+}
