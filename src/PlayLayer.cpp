@@ -107,6 +107,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 		CCTintTo* tintSix = CCTintTo::create(speed, 255, 128, 255);
 		CCSequence* sequence = CCSequence::create(tintOne, tintTwo, tintThree, tintFour, tintFive, tintSix, nullptr);
 		CCRepeatForever* repeat = CCRepeatForever::create(sequence);
+		manager->chromaAction = nullptr;
+		manager->chromaAction = repeat;
 		repeat->setTag(CHROMA_ACTION_TAG);
 		theLabelItself->runAction(repeat);
 	}
@@ -150,7 +152,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		theLabelItself->setScaleY(1.f);
 		theLabelItself->setString(m_attemptLabel->getString());
 		theLabelItself->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
-		theLabelItself->stopActionByTag(CHROMA_ACTION_TAG); // stop chroma action
+		theLabelItself->stopAction(manager->chromaAction);
 		theLabelItself->setFntFile("bigFont.fnt");
 		theLabelItself->setColor({255, 255, 255});
 		theLabelItself->setOpacity(255);
@@ -164,6 +166,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void onQuit() {
 		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself = nullptr;
+		if (Manager::getSharedInstance()->chromaAction) Manager::getSharedInstance()->chromaAction = nullptr;
 		PlayLayer::onQuit();
 	}
 };

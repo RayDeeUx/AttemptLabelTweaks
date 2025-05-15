@@ -76,6 +76,7 @@ public:
 	std::string attemptSuffixPractice;
 
 	CCLabelBMFont* theLabelItself = nullptr;
+	CCRepeatForever* chromaAction = nullptr;
 
 	static Manager* getSharedInstance() {
 		if (!instance) instance = new Manager();
