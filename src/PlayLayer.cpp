@@ -164,7 +164,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void onQuit() {
 		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself = nullptr;
-		if (Manager::getSharedInstance()->chromaAction) Manager::getSharedInstance()->chromaAction = nullptr;
 		PlayLayer::onQuit();
 	}
 };
