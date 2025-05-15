@@ -106,7 +106,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		CCTintTo* tintFive = CCTintTo::create(speed, 128, 128, 255);
 		CCTintTo* tintSix = CCTintTo::create(speed, 255, 128, 255);
 		CCSequence* sequence = CCSequence::create(tintOne, tintTwo, tintThree, tintFour, tintFive, tintSix, nullptr);
-		CCRepeatForever* repeat = CCRepeatForever::create(sequence);
+		CCRepeat* repeat = CCRepeat::create(sequence, 3999);
 		repeat->setTag(CHROMA_ACTION_TAG);
 		theLabelItself->runAction(repeat);
 	}
@@ -150,9 +150,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 		theLabelItself->setScaleY(1.f);
 		theLabelItself->setString(m_attemptLabel->getString());
 		theLabelItself->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
+		theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);
 		theLabelItself->setFntFile("bigFont.fnt");
 		theLabelItself->setColor({255, 255, 255});
-		theLabelItself->stopAllActions();
 		theLabelItself->setOpacity(255);
 
 		MyPlayLayer::setFont();
