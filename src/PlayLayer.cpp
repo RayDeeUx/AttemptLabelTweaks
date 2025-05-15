@@ -25,7 +25,7 @@ using namespace geode::prelude;
 	log::info("conditionWithTestmode: {}", conditionWithTestmode);\
 	log::info("shouldEnableBecauseTestmode: {}", shouldEnableBecauseTestmode);\
 	log::info("————— NORMAL MODE VARIABLES —————");\
-	log::info("!m_isTestMode: {}", !isTestMode);\
+	log::info("!m_isTestMode && !m_isPracticeMode: {}", !m_isTestMode && !m_isPracticeMode);\
 	log::info("conditionWithoutTestmode: {}", conditionWithoutTestmode);\
 	log::info("shouldEnableBecauseNormal: {}", shouldEnableBecauseNormal);\
 	log::info("————— END PRINTING VARIABLES —————");
@@ -45,9 +45,12 @@ using namespace geode::prelude;
 #define EARLY_RETURN(conditionWithoutTestmode, conditionWithPracticeMode, conditionWithTestmode)\
 	const bool shouldEnableBecauseTestmode = m_isTestMode && conditionWithTestmode;\
 	const bool shouldEnableBecausePractice = m_isPracticeMode && conditionWithPracticeMode;\
-	const bool shouldEnableBecauseNormal = !m_isTestMode && conditionWithoutTestmode;\
+	const bool shouldEnableBecauseNormal = !m_isTestMode && !m_isPracticeMode && conditionWithoutTestmode;\
 	LOG_VARIABLES(m_isPracticeMode, conditionWithPracticeMode, shouldEnableBecausePractice, m_isTestMode, conditionWithTestmode, shouldEnableBecauseTestmode, conditionWithoutTestmode, shouldEnableBecauseNormal)\
-	if (!shouldEnableBecauseTestmode && !shouldEnableBecausePractice && !shouldEnableBecauseNormal) return log::info("NOTHING WAS CHOSEN, all false.");
+	if (!shouldEnableBecauseTestmode && !shouldEnableBecausePractice && !shouldEnableBecauseNormal) {\
+		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
+		return log::info("Nothing was chosen. Everything is false, so this is fine. (Probably?)");\
+	}
 
 #define SELECT_OPTION_USING(shouldEnableBecauseNormal, shouldEnableBecausePractice, shouldEnableBecauseTestmode, memory, type, optionForNormal, optionForPractice, optionForTestmode)\
 	LOG_OPTIONS(optionForNormal, optionForPractice, optionForTestmode)\
@@ -55,7 +58,10 @@ using namespace geode::prelude;
 	if (shouldEnableBecausePractice) memory = optionForPractice;\
 	else if (shouldEnableBecauseTestmode) memory = optionForTestmode;\
 	else if (shouldEnableBecauseNormal) memory = optionForNormal;\
-	else return log::info("Nothing was chosen. Something went wrong...");
+	else {\
+		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
+		return log::info("Nothing was chosen. Something went wrong...");\
+	}
 
 #define SETUP_THE_LABEL_ITSELF_USING(conditionWithoutTestmode, conditionWithPracticeMode, conditionWithTestmode, memory, type, optionForNormal, optionForPractice, optionForTestmode)\
 	GET_MANAGER\
@@ -98,6 +104,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		theLabelItself->setScale(scale);
 	}
 	void setChrma() const {
+		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);
 		SETUP_THE_LABEL_ITSELF_USING(manager->chroma, manager->chromP, manager->chromT, speed, float, manager->chromaSpeed, manager->chromaSpeedPractice, manager->chromaSpeedTestmode)
 		CCTintTo* tintOne = CCTintTo::create(speed, 255, 128, 128);
 		CCTintTo* tintTwo = CCTintTo::create(speed, 255, 255, 128);
@@ -150,7 +157,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 		theLabelItself->setScaleY(1.f);
 		theLabelItself->setString(m_attemptLabel->getString());
 		theLabelItself->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
-		theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);
 		theLabelItself->setFntFile("bigFont.fnt");
 		theLabelItself->setColor({255, 255, 255});
 		theLabelItself->setOpacity(255);
