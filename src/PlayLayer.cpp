@@ -77,9 +77,6 @@ using namespace geode::prelude;
 	theLabelItself->setPosition(m_attemptLabel->getPosition());
 
 class $modify(MyPlayLayer, PlayLayer) {
-	static void onModify(auto& self) {
-		(void) self.setHookPriorityAfterPost("PlayLayer::setupHasCompleted", "geode.node-ids");
-	}
 	void setFont() const {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
 		switch (fontID) {
