@@ -76,6 +76,24 @@ using namespace geode::prelude;
 	theLabelItself->setVisible(m_attemptLabel->isVisible());\
 	theLabelItself->setPosition(m_attemptLabel->getPosition());
 
+#define CUSTOMIZE_THE_LABEL_ITSELF\
+	GET_MANAGER\
+	ABORT_IF_NO_LABEL\
+	PASSIVELY_REPLACE_ATTEMPT_LABEL\
+	theLabelItself->setScaleX(1.f);\
+	theLabelItself->setScaleY(1.f);\
+	theLabelItself->setString(m_attemptLabel->getString());\
+	theLabelItself->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });\
+	theLabelItself->setFntFile("bigFont.fnt");\
+	theLabelItself->setColor({255, 255, 255});\
+	theLabelItself->setOpacity(255);\
+	MyPlayLayer::setFont();\
+	MyPlayLayer::setScale();\
+	MyPlayLayer::setAlpha();\
+	MyPlayLayer::setColor();\
+	MyPlayLayer::setChrma();\
+	MyPlayLayer::setLabel();\
+
 class $modify(MyPlayLayer, PlayLayer) {
 	void setFont() const {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
@@ -145,25 +163,13 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
-		GET_MANAGER
-		ABORT_IF_NO_LABEL
-
-		PASSIVELY_REPLACE_ATTEMPT_LABEL
-
-		theLabelItself->setScaleX(1.f);
-		theLabelItself->setScaleY(1.f);
-		theLabelItself->setString(m_attemptLabel->getString());
-		theLabelItself->setBlendFunc({ GL_ONE, GL_ONE_MINUS_SRC_ALPHA });
-		theLabelItself->setFntFile("bigFont.fnt");
-		theLabelItself->setColor({255, 255, 255});
-		theLabelItself->setOpacity(255);
-
-		MyPlayLayer::setFont();
-		MyPlayLayer::setScale();
-		MyPlayLayer::setAlpha();
-		MyPlayLayer::setColor();
-		MyPlayLayer::setChrma();
-		MyPlayLayer::setLabel();
+		if (!m_attemptLabel) return;
+		CUSTOMIZE_THE_LABEL_ITSELF
+	}
+	void togglePracticeMode(bool isPractice) {
+		PlayLayer::togglePracticeMode(isPractice);
+		if (!m_attemptLabel) return;
+		CUSTOMIZE_THE_LABEL_ITSELF
 	}
 	void onQuit() {
 		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself = nullptr;
