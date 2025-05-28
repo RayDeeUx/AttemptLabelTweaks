@@ -12,6 +12,7 @@ using namespace geode::prelude;
 	if (!manager->enabled) return;
 
 #define ABORT_IF_NO_LABEL\
+	if (!manager->theLabelItself) return;\
 	CCLabelBMFont* theLabelItself = manager->theLabelItself;\
 	if (!theLabelItself) return;
 
@@ -70,6 +71,7 @@ using namespace geode::prelude;
 	ABORT_IF_NO_LABEL
 
 #define PASSIVELY_REPLACE_ATTEMPT_LABEL\
+	if (!m_attemptLabel || !manager->theLabelItself || !theLabelItself) return;\
 	m_attemptLabel->setScaleX(0.f);\
 	m_attemptLabel->setScaleY(0.f);\
 	theLabelItself->setZOrder(m_attemptLabel->getZOrder());\
