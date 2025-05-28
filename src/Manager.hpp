@@ -75,8 +75,6 @@ public:
 	std::string attemptSuffixTestmode;
 	std::string attemptSuffixPractice;
 
-	CCLabelBMFont* theLabelItself = nullptr;
-
 	static Manager* getSharedInstance() {
 		if (!instance) instance = new Manager();
 		return instance;
