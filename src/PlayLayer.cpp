@@ -72,6 +72,7 @@ using namespace geode::prelude;
 	ABORT_IF_NO_LABEL
 
 #define PASSIVELY_REPLACE_ATTEMPT_LABEL\
+	if (!m_attemptLabel || !theLabelItself) return;\
 	m_attemptLabel->setScaleX(0.f);\
 	m_attemptLabel->setScaleY(0.f);\
 	theLabelItself->setZOrder(m_attemptLabel->getZOrder());\
