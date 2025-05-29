@@ -100,7 +100,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 	struct Fields {
 		CCLabelBMFont* theLabelItself = nullptr;
 	};
-
 	void setFont() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
 		switch (fontID) {
