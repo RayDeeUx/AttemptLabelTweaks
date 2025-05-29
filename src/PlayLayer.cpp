@@ -12,8 +12,7 @@ using namespace geode::prelude;
 	if (!manager->enabled) return;
 
 #define ABORT_IF_NO_LABEL\
-	if (!manager->theLabelItself) return;\
-	CCLabelBMFont* theLabelItself = manager->theLabelItself;\
+	CCLabelBMFont* theLabelItself = m_fields->theLabelItself;\
 	if (!theLabelItself) return;
 
 #define LOG_VARIABLES(isPracticeMode, conditionWithPracticeMode, shouldEnableBecausePractice, isTestMode, conditionWithTestmode, shouldEnableBecauseTestmode, conditionWithoutTestmode, shouldEnableBecauseNormal)\
@@ -49,7 +48,8 @@ using namespace geode::prelude;
 	const bool shouldEnableBecauseNormal = !m_isTestMode && !m_isPracticeMode && conditionWithoutTestmode;\
 	LOG_VARIABLES(m_isPracticeMode, conditionWithPracticeMode, shouldEnableBecausePractice, m_isTestMode, conditionWithTestmode, shouldEnableBecauseTestmode, conditionWithoutTestmode, shouldEnableBecauseNormal)\
 	if (!shouldEnableBecauseTestmode && !shouldEnableBecausePractice && !shouldEnableBecauseNormal) {\
-		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
+		Fields* fields = m_fields.self();\
+		if (fields->theLabelItself) fields->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
 		return log::info("Nothing was chosen. Everything is false, so this is fine. (Probably?)");\
 	}
 
@@ -60,7 +60,8 @@ using namespace geode::prelude;
 	else if (shouldEnableBecauseTestmode) memory = optionForTestmode;\
 	else if (shouldEnableBecauseNormal) memory = optionForNormal;\
 	else {\
-		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
+		Fields* fields = m_fields.self();\
+		if (fields->theLabelItself) fields->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);\
 		return log::info("Nothing was chosen. Something went wrong...");\
 	}
 
@@ -71,7 +72,7 @@ using namespace geode::prelude;
 	ABORT_IF_NO_LABEL
 
 #define PASSIVELY_REPLACE_ATTEMPT_LABEL\
-	if (!m_attemptLabel || !manager->theLabelItself || !theLabelItself) return;\
+	if (!m_attemptLabel || !theLabelItself) return;\
 	m_attemptLabel->setScaleX(0.f);\
 	m_attemptLabel->setScaleY(0.f);\
 	theLabelItself->setZOrder(m_attemptLabel->getZOrder());\
@@ -79,7 +80,6 @@ using namespace geode::prelude;
 	theLabelItself->setPosition(m_attemptLabel->getPosition());
 
 #define CUSTOMIZE_THE_LABEL_ITSELF\
-	GET_MANAGER\
 	ABORT_IF_NO_LABEL\
 	PASSIVELY_REPLACE_ATTEMPT_LABEL\
 	theLabelItself->setScaleX(1.f);\
@@ -97,7 +97,11 @@ using namespace geode::prelude;
 	MyPlayLayer::setLabel();\
 
 class $modify(MyPlayLayer, PlayLayer) {
-	void setFont() const {
+	struct Fields {
+		CCLabelBMFont* theLabelItself = nullptr;
+	};
+
+	void setFont() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
 		switch (fontID) {
 			case -3: theLabelItself->setFntFile("chatFont.fnt"); break;
@@ -108,20 +112,21 @@ class $modify(MyPlayLayer, PlayLayer) {
 		}
 		if (fontID == -3 && manager->blend) theLabelItself->setBlendFunc({ GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA });
 	}
-	void setAlpha() const {
+	void setAlpha() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->alphaB, manager->alphaP, manager->alphaT, alpha, int, manager->alpha, manager->alphaPractice, manager->alphaTestmode)
 		theLabelItself->setOpacity(alpha);
 	}
-	void setColor() const {
+	void setColor() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->colorB, manager->colorP, manager->colorT, color, ccColor3B, manager->color, manager->colorPractice, manager->colorTestmode)
 		theLabelItself->setColor(color);
 	}
-	void setScale() const {
+	void setScale() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->scaleB, manager->scaleP, manager->scaleT, scale, float, manager->scale, manager->scalePractice, manager->scaleTestmode)
 		theLabelItself->setScale(scale);
 	}
-	void setChrma() const {
-		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);
+	void setChrma() {
+		Fields* fields = m_fields.self();
+		if (fields->theLabelItself) fields->theLabelItself->stopActionByTag(CHROMA_ACTION_TAG);
 		SETUP_THE_LABEL_ITSELF_USING(manager->chroma, manager->chromP, manager->chromT, speed, float, manager->chromaSpeed, manager->chromaSpeedPractice, manager->chromaSpeedTestmode)
 		CCTintTo* tintOne = CCTintTo::create(speed, 255, 128, 128);
 		CCTintTo* tintTwo = CCTintTo::create(speed, 255, 255, 128);
@@ -134,7 +139,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		repeat->setTag(CHROMA_ACTION_TAG);
 		theLabelItself->runAction(repeat);
 	}
-	void setLabel() const {
+	void setLabel() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->format, manager->formaP, manager->formTT, prefix, std::string, manager->attemptPrefix, manager->attemptPrefixPractice, manager->attemptPrefixTestmode)
 		SELECT_OPTION_USING(shouldEnableBecauseNormal, shouldEnableBecausePractice, shouldEnableBecauseTestmode, suffix, std::string, manager->attemptSuffix, manager->attemptSuffixPractice, manager->attemptSuffixTestmode)
 		SELECT_OPTION_USING(shouldEnableBecauseNormal, shouldEnableBecausePractice, shouldEnableBecauseTestmode, useTotalAttempts, bool, manager->atempt, manager->attemP, manager->attmTT)
@@ -146,10 +151,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::setupHasCompleted();
 		if (!m_attemptLabel || !m_attemptLabel->getParent()) return;
 
-		GET_MANAGER
-
 		CCLabelBMFont* theLabelItself = CCLabelBMFont::create(m_attemptLabel->getString(), "bigFont.fnt");
-		if (!manager->theLabelItself) manager->theLabelItself = theLabelItself;
+		m_fields->theLabelItself = theLabelItself;
 
 		m_attemptLabel->getParent()->addChild(theLabelItself);
 		PASSIVELY_REPLACE_ATTEMPT_LABEL
@@ -172,9 +175,5 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::togglePracticeMode(isPractice);
 		if (!m_attemptLabel) return;
 		CUSTOMIZE_THE_LABEL_ITSELF
-	}
-	void onQuit() {
-		if (Manager::getSharedInstance()->theLabelItself) Manager::getSharedInstance()->theLabelItself = nullptr;
-		PlayLayer::onQuit();
 	}
 };
