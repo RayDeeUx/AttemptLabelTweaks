@@ -100,11 +100,13 @@ class $modify(MyPlayLayer, PlayLayer) {
 	struct Fields {
 		CCLabelBMFont* theLabelItself = nullptr;
 	};
-	void positionTheLabelItselfBecauseShstaalrgwIsATotalPOS(float) {
+	void postUpdate(float dt) {
+		// fuck you shstaalrgw
+		PlayLayer::postUpdate(dt);
 		if (!m_attemptLabel) return;
 		auto fields = m_fields.self();
 		if (!fields || !fields->theLabelItself) return;
-		fields->theLabelItself->setPosition(m_attemptLabel->getPosition()); // fuck you shstaalrgw
+		fields->theLabelItself->setPosition(m_attemptLabel->getPosition());
 	}
 	void setFont() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
@@ -151,7 +153,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 		const int attemptsForLabel = useTotalAttempts ? m_level->m_attempts.value() : m_attempts;
 		const std::string& formatForLabel = geode::utils::string::trim(fmt::format("{} {} {}", prefix, attemptsForLabel, suffix));
 		theLabelItself->setString(formatForLabel.c_str());
-		theLabelItself->schedule(schedule_selector(MyPlayLayer::positionTheLabelItselfBecauseShstaalrgwIsATotalPOS));
 	}
 	void setupHasCompleted() {
 		PlayLayer::setupHasCompleted();
