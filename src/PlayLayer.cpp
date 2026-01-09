@@ -186,9 +186,11 @@ class $modify(MyPlayLayer, PlayLayer) {
 		CUSTOMIZE_THE_LABEL_ITSELF
 	}
 	void updateAttempts() {
+		// fuck you shstaalrgw
 		PlayLayer::updateAttempts();
 		if (!m_attemptLabel) return;
 		auto fields = m_fields.self();
 		if (!fields || !fields->theLabelItself) return;
 		fields->theLabelItself->setPosition(m_attemptLabel->getPosition());
+	}
 };
