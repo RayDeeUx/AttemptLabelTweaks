@@ -100,6 +100,12 @@ class $modify(MyPlayLayer, PlayLayer) {
 	struct Fields {
 		CCLabelBMFont* theLabelItself = nullptr;
 	};
+	void positionTheLabelItselfBecauseShstaalrgwIsATotalPOS(float) {
+		if (!m_attemptLabel) return;
+		auto fields = m_fields.self();
+		if (!fields || !fields->theLabelItself) return;
+		fields->theLabelItself->setPosition(m_attemptLabel->getPosition()); // fuck you shstaalrgw
+	}
 	void setFont() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
 		switch (fontID) {
@@ -145,6 +151,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		const int attemptsForLabel = useTotalAttempts ? m_level->m_attempts.value() : m_attempts;
 		const std::string& formatForLabel = geode::utils::string::trim(fmt::format("{} {} {}", prefix, attemptsForLabel, suffix));
 		theLabelItself->setString(formatForLabel.c_str());
+		theLabelItself->schedule(schedule_selector(MyPlayLayer::positionTheLabelItselfBecauseShstaalrgwIsATotalPOS));
 	}
 	void setupHasCompleted() {
 		PlayLayer::setupHasCompleted();
@@ -172,11 +179,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void togglePracticeMode(bool isPractice) {
 		PlayLayer::togglePracticeMode(isPractice);
-		if (!m_attemptLabel) return;
-		CUSTOMIZE_THE_LABEL_ITSELF
-	}
-	void startGameDelayed() {
-		PlayLayer::startGameDelayed();
 		if (!m_attemptLabel) return;
 		CUSTOMIZE_THE_LABEL_ITSELF
 	}
