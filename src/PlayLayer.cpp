@@ -185,9 +185,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!m_attemptLabel) return;
 		CUSTOMIZE_THE_LABEL_ITSELF
 	}
-	void updateAttempts() {
+	void startMusic() {
 		// fuck you shstaalrgw
-		PlayLayer::updateAttempts();
+		PlayLayer::startMusic();
 		if (!m_attemptLabel) return;
 		auto fields = m_fields.self();
 		if (!fields || !fields->theLabelItself) return;
