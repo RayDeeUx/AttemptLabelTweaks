@@ -175,4 +175,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!m_attemptLabel) return;
 		CUSTOMIZE_THE_LABEL_ITSELF
 	}
+	void startGameDelayed() {
+		PlayLayer::startGameDelayed();
+		if (!m_attemptLabel) return;
+		CUSTOMIZE_THE_LABEL_ITSELF
+	}
 };
