@@ -100,6 +100,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	struct Fields {
 		CCLabelBMFont* theLabelItself = nullptr;
 	};
+	/*
 	void postUpdate(float dt) {
 		// fuck you shstaalrgw
 		PlayLayer::postUpdate(dt);
@@ -108,6 +109,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!fields || !fields->theLabelItself) return;
 		fields->theLabelItself->setPosition(m_attemptLabel->getPosition());
 	}
+	*/
 	void setFont() {
 		SETUP_THE_LABEL_ITSELF_USING(manager->cFontB, manager->cFontP, manager->cFontT, fontID, int, manager->font, manager->fontPractice, manager->fontTestmode)
 		switch (fontID) {
@@ -183,4 +185,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!m_attemptLabel) return;
 		CUSTOMIZE_THE_LABEL_ITSELF
 	}
+	void updateAttempts() {
+		PlayLayer::updateAttempts();
+		if (!m_attemptLabel) return;
+		auto fields = m_fields.self();
+		if (!fields || !fields->theLabelItself) return;
+		fields->theLabelItself->setPosition(m_attemptLabel->getPosition());
 };
